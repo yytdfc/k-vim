@@ -45,8 +45,13 @@ filetype plugin indent on
 "==========================================
 " General Settings 基础设置
 "==========================================
-
-
+" my settings
+nnoremap <Leader>l     :TagbarToggle<CR>
+inoremap <Leader>l     <Esc>:TagbarToggle<CR>
+nnoremap <Leader>t     :CtrlSpace<CR>
+inoremap <Leader>t     <Esc>:CtrlSpace<CR>
+nmap <leader>p "+gp  
+nmap <leader>y "+y 
 " history存储容量
 set history=2000
 
@@ -98,13 +103,14 @@ set cursorline
 
 " 设置 退出vim后，内容显示在终端屏幕, 可以用于查看和复制, 不需要可以去掉
 " 好处：误删什么的，如果以前屏幕打开，可以找回
-set t_ti= t_te=
+" set t_ti= t_te=
 
 
 " 鼠标暂不启用, 键盘党....
-set mouse-=a
+" set mouse-=a
 " 启用鼠标
 " set mouse=a
+set mouse=v
 " Hide the mouse cursor while typing
 " set mousehide
 
@@ -143,7 +149,7 @@ set showcmd
 set showmode
 
 " 在上下移动光标时，光标的上方或下方至少会保留显示的行数
-set scrolloff=7
+set scrolloff=9
 
 " set winwidth=79
 
@@ -294,7 +300,7 @@ set wildignore=*.o,*~,*.pyc,*.class
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " 回车即选中当前项
-inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+"inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
 
 " In the quickfix window, <CR> is used to jump to the error under the
 " cursor, so undefine the mapping there.
@@ -308,10 +314,10 @@ autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
 
 
 " 上下左右键的行为 会显示其他信息
-inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
-inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+"inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+"inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+"inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
+"inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 
 " 打开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写
 if has("autocmd")
@@ -322,13 +328,22 @@ endif
 " HotKey Settings  自定义快捷键设置
 "==========================================
 
+" 我的快捷键：
+" 保存快捷键
+nnoremap <C-s> :w<CR>
+inoremap <C-j> <DOWN>
+inoremap <C-k> <UP>
+inoremap <C-h> <LEFT>
+inoremap <C-l> <RIGHT>
+
+
 " 主要按键重定义
 
 " 关闭方向键, 强迫自己用 hjkl
-map <Left> <Nop>
-map <Right> <Nop>
-map <Up> <Nop>
-map <Down> <Nop>
+"map <Left> <Nop>
+"map <Right> <Nop>
+"map <Up> <Nop>
+"map <Down> <Nop>
 
 "Treat long lines as break lines (useful when moving around in them)
 "se swap之后，同物理行上线直接跳
@@ -384,10 +399,11 @@ inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
 
 " 分屏窗口移动, Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+"map <C-j> <C-W>j
+"map <C-k> <C-W>k
+"map <C-h> <C-W>h
+"map <C-l> <C-W>l
+
 
 
 " http://stackoverflow.com/questions/13194428/is-better-way-to-zoom-windows-in-vim-than-zoomwin
@@ -497,8 +513,8 @@ nnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
 autocmd TabLeave * let g:last_active_tab = tabpagenr()
 
 " 新建tab  Ctrl+t
-nnoremap <C-t>     :tabnew<CR>
-inoremap <C-t>     <Esc>:tabnew<CR>
+" nnoremap <C-t>     :tabnew<CR>
+" inoremap <C-t>     <Esc>:tabnew<CR>
 
 
 " => 选中及操作改键
@@ -519,7 +535,7 @@ vnoremap <leader>y "+y
 " nnoremap <silent> p p`]
 
 " select all
-map <Leader>sa ggVG
+map <Leader>a ggVG
 
 " select block
 nnoremap <leader>v V`}
@@ -527,8 +543,8 @@ nnoremap <leader>v V`}
 " w!! to sudo & write a file
 cmap w!! w !sudo tee >/dev/null %
 
-" kj 替换 Esc
-inoremap kj <Esc>
+" jj 替换 Esc
+inoremap jj <Esc>
 
 " 滚动Speed up scrolling of the viewport slightly
 nnoremap <C-e> 2<C-e>
@@ -655,18 +671,20 @@ if has("gui_running")
     set guitablabel=%M\ %t
     set showtabline=1
     set linespace=2
-    set noimd
+    " set noimd
     set t_Co=256
 endif
 
 
+let g:solarized_termcolors=256
 
 " theme主题
-set background=dark
+" set background=dark
+set background=light
 set t_Co=256
 
-colorscheme solarized
-" colorscheme molokai
+" colorscheme solarized
+colorscheme molokai
 " colorscheme desert
 
 

@@ -35,7 +35,7 @@ Plug 'scrooloose/syntastic'
 " Group dependencies, vim-snippets depends on ultisnips
 " 代码片段快速插入 (snippets中,是代码片段资源,需要学习)
 " Snippets are separated from the engine. Add this if you want them:
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " auto complete
 " 代码自动补全
@@ -506,13 +506,13 @@ call plug#end()
     vmap v <Plug>(expand_region_expand)
     vmap V <Plug>(expand_region_shrink)
     " Extend the global default
-    call expand_region#custom_text_objects({
-      \ 'a]' :1,
-      \ 'ab' :1,
-      \ 'aB' :1,
-      \ 'ii' :0,
-      \ 'ai' :0,
-      \ })
+    " call expand_region#custom_text_objects({
+    "   \ 'a]' :1,
+    "   \ 'ab' :1,
+    "   \ 'aB' :1,
+    "   \ 'ii' :0,
+    "   \ 'ai' :0,
+    "   \ })
 " }}}
 
 " multiplecursors {{{
@@ -620,7 +620,7 @@ call plug#end()
     let g:airline_symbols.linenr = '¶'
     let g:airline_symbols.branch = '⎇'
     " 是否打开tabline
-    " let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#enabled = 1
 " }}}
 
 

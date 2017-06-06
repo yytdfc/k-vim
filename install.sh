@@ -17,8 +17,8 @@ For example:
     install.sh --for-vim
     install.sh --help"
 }
-FOR_VIM=true
-FOR_NEOVIM=false
+FOR_VIM=false #true
+FOR_NEOVIM=true #false
 if [ "$1" != "" ]; then
     case $1 in
         --for-vim)
@@ -78,7 +78,7 @@ export SHELL="/bin/sh"
 if $FOR_VIM; then
     vim -u $HOME/.vimrc.bundles +PlugInstall! +PlugClean! +qall
 else
-    nvim -u $HOME/.vimrc.bundles +PlugInstall! +PlugClean! +qall
+    nvim -u $HOME/.config/nvim/vimrc.bundles +PlugInstall! +PlugClean! +qall
 fi
 export SHELL=$system_shell
 

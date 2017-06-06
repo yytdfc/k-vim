@@ -24,10 +24,15 @@ endif
 " 使用 vim-plug 管理插件
 " vim plugin bundle control, command model
 " ----------------------------------------------------------------------------
-
-call plug#begin('~/.vim/bundle')
+if filereadable(expand("~/.vimrc.bundles"))
+  call plug#begin('~/.vim/bundle')
+elseif filereadable(expand("~/.config/nvim/vimrc.bundles")) " neovim
+  call plug#begin('~/.config/nvim/bundle')
+endif
 
 " 移动光标到插件名上, 使用'#'快速跳转到每个插件的配置处
+" neoterm
+Plug 'kassio/neoterm'
 
 " syntastic
 Plug 'scrooloose/syntastic'
@@ -41,7 +46,7 @@ Plug 'scrooloose/syntastic'
 " 代码自动补全
 " 迄今为止用到的最好的自动VIM自动补全插件
 " 重启 :YcmRestartServer
-Plug 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
 " 自动补全单引号，双引号等
 Plug 'Raimondi/delimitMate'
 " 自动补全html/xml标签
@@ -686,12 +691,12 @@ call plug#end()
     " nerdtreetabs
     map <Leader>n <plug>NERDTreeTabsToggle<CR>
     " 关闭同步
-    " let g:nerdtree_tabs_synchronize_view=0
-    " let g:nerdtree_tabs_synchronize_focus=0
+    let g:nerdtree_tabs_synchronize_view=0
+    let g:nerdtree_tabs_synchronize_focus=0
     " 是否自动开启nerdtree
     " thank to @ListenerRi, see https://github.com/wklken/k-vim/issues/165
-    " let g:nerdtree_tabs_open_on_console_startup=0
-    " let g:nerdtree_tabs_open_on_gui_startup=0
+    let g:nerdtree_tabs_open_on_console_startup=0
+    let g:nerdtree_tabs_open_on_gui_startup=0
 " }}}
 
 

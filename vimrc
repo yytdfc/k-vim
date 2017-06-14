@@ -45,11 +45,10 @@ filetype plugin indent on
 "==========================================
 " General Settings 基础设置
 "==========================================
-" my settings
-nnoremap <Leader>l     :TagbarToggle<CR>
-inoremap <Leader>l     <Esc>:TagbarToggle<CR>
-nnoremap <Leader>t     :CtrlSpace<CR>
-inoremap <Leader>t     <Esc>:CtrlSpace<CR>
+
+
+" nnoremap <Leader>t     :CtrlSpace<CR>
+" inoremap <Leader>t     <Esc>:CtrlSpace<CR>
 nmap <leader>p "+gp  
 nmap <leader>y "+y 
 " history存储容量
@@ -246,7 +245,7 @@ function! NumberToggle()
     set relativenumber
   endif
 endfunc
-nnoremap <C-n> :call NumberToggle()<cr>
+" nnoremap <C-n> :call NumberToggle()<cr>
 
 " 防止tmux下vim的背景色显示异常
 " Refer: http://sunaku.github.io/vim-256color-bce.html
@@ -382,6 +381,7 @@ nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
                                 "    paste mode, where you can paste mass data
                                 "    that won't be autoindented
+nnoremap <F7> :call NumberToggle()<cr>
 
 " disbale paste mode when leaving insert mode
 au InsertLeave * set nopaste
@@ -403,6 +403,32 @@ inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 "map <C-k> <C-W>k
 "map <C-h> <C-W>h
 "map <C-l> <C-W>l
+
+" my settings
+tnoremap <Esc> <C-\><C-n>
+tnoremap <C-j> <C-\><C-N><C-w>j
+tnoremap <C-k> <C-\><C-N><C-w>k
+tnoremap <A-h> <C-\><C-N><C-w>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
+inoremap <A-h> <C-\><C-N><C-w>h
+inoremap <A-j> <C-\><C-N><C-w>j
+inoremap <A-k> <C-\><C-N><C-w>k
+inoremap <A-l> <C-\><C-N><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+nnoremap <A-=> <C-w>+
+nnoremap <A--> <C-w>-
+nnoremap <Leader>l     :TagbarToggle<CR>
+inoremap <Leader>l     <Esc>:TagbarToggle<CR>
+" neo terminal
+nnoremap <Leader>t     :sp<CR><C-w><C-w>:res 14<CR>:call HideNumber()<CR>:term/usr/bin/zsh<CR>
+inoremap <Leader>t     <Esc>:sp<CR><C-w><C-w>:res 14<CR>:call HideNumber()<CR>:term/usr/bin/zsh<CR>
+nnoremap <C-n> <C-w>ji
+nnoremap <C-c> i<C-c>
 
 
 
@@ -470,38 +496,38 @@ autocmd BufNewFile,BufRead *.py inoremap # X<c-h>#
 nnoremap [b :bprevious<cr>
 nnoremap ]b :bnext<cr>
 " 使用方向键切换buffer
-noremap <left> :bp<CR>
-noremap <right> :bn<CR>
+" noremap <left> :bp<CR>
+" noremap <right> :bn<CR>
 
 
 " tab 操作
 " http://vim.wikia.com/wiki/Alternative_tab_navigation
 " http://stackoverflow.com/questions/2005214/switching-to-a-particular-tab-in-vim
 
-" tab切换
-map <leader>th :tabfirst<cr>
-map <leader>tl :tablast<cr>
+" " tab切换
+" map <leader>th :tabfirst<cr>
+" map <leader>tl :tablast<cr>
 
-map <leader>tj :tabnext<cr>
-map <leader>tk :tabprev<cr>
-map <leader>tn :tabnext<cr>
-map <leader>tp :tabprev<cr>
+" map <leader>tj :tabnext<cr>
+" map <leader>tk :tabprev<cr>
+" map <leader>tn :tabnext<cr>
+" map <leader>tp :tabprev<cr>
 
-map <leader>te :tabedit<cr>
-map <leader>td :tabclose<cr>
-map <leader>tm :tabm<cr>
+" map <leader>te :tabedit<cr>
+" map <leader>td :tabclose<cr>
+" map <leader>tm :tabm<cr>
 
-" normal模式下切换到确切的tab
-noremap <leader>1 1gt
-noremap <leader>2 2gt
-noremap <leader>3 3gt
-noremap <leader>4 4gt
-noremap <leader>5 5gt
-noremap <leader>6 6gt
-noremap <leader>7 7gt
-noremap <leader>8 8gt
-noremap <leader>9 9gt
-noremap <leader>0 :tablast<cr>
+" " normal模式下切换到确切的tab
+" noremap <leader>1 1gt
+" noremap <leader>2 2gt
+" noremap <leader>3 3gt
+" noremap <leader>4 4gt
+" noremap <leader>5 5gt
+" noremap <leader>6 6gt
+" noremap <leader>7 7gt
+" noremap <leader>8 8gt
+" noremap <leader>9 9gt
+" noremap <leader>0 :tablast<cr>
 
 " Toggles between the active and last active tab "
 " The first tab is always 1 "
@@ -558,6 +584,7 @@ nnoremap <C-y> 2<C-y>
 
 " Quickly close the current window
 nnoremap <leader>q :q<CR>
+" b# | bd# <CR>
 
 " Quickly save the current file
 nnoremap <leader>w :w<CR>

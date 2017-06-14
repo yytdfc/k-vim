@@ -31,8 +31,10 @@ elseif filereadable(expand("~/.config/nvim/vimrc.bundles")) " neovim
 endif
 
 " 移动光标到插件名上, 使用'#'快速跳转到每个插件的配置处
+"
 " neoterm
-Plug 'kassio/neoterm'
+" Plug 'kassio/neoterm'
+" nnoremap <leader>o : Tnew<CR>
 
 " syntastic
 Plug 'scrooloose/syntastic'
@@ -146,7 +148,7 @@ Plug 'tomasr/molokai'
 " nerdtree nerdtreetabs
 Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
 " ctrlspace
-Plug 'vim-ctrlspace/vim-ctrlspace'
+" Plug 'vim-ctrlspace/vim-ctrlspace'
 " tagbar
 Plug 'majutsushi/tagbar'
 
@@ -615,6 +617,7 @@ call plug#end()
 " ################### 显示增强 ###################
 
 " airline {{{
+    " let g:airline_powerline_fonts = 1
     if !exists('g:airline_symbols')
         let g:airline_symbols = {}
     endif
@@ -625,7 +628,44 @@ call plug#end()
     let g:airline_symbols.linenr = '¶'
     let g:airline_symbols.branch = '⎇'
     " 是否打开tabline
-    let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#tabline#show_splits = 1
+  let g:airline#extensions#tabline#show_tabs = 1
+  let g:airline#extensions#tabline#excludes = ['bash','zsh']
+  let g:airline#extensions#tabline#exclude_preview = 1
+  let g:airline#extensions#tabline#buffer_idx_mode = 1
+  let g:airline#extensions#tabline#buffer_idx_format = {
+        \ '0': '[0] ',
+        \ '1': '[1] ',
+        \ '2': '[2] ',
+        \ '3': '[3] ',
+        \ '4': '[4] ',
+        \ '5': '[5] ',
+        \ '6': '[6] ',
+        \ '7': '[7] ',
+        \ '8': '[8] ',
+        \ '9': '[9] '
+        \}
+  let g:airline#extensions#tabline#left_sep = '▶'
+  let g:airline#extensions#tabline#left_alt_sep = '❯'
+  let g:airline#extensions#tabline#right_sep = '❮'
+  let g:airline#extensions#tabline#right_alt_sep = '◀'
+  nmap <leader>1 <Plug>AirlineSelectTab1
+  nmap <leader>2 <Plug>AirlineSelectTab2
+  nmap <leader>3 <Plug>AirlineSelectTab3
+  nmap <leader>4 <Plug>AirlineSelectTab4
+  nmap <leader>5 <Plug>AirlineSelectTab5
+  nmap <leader>6 <Plug>AirlineSelectTab6
+  nmap <leader>7 <Plug>AirlineSelectTab7
+  nmap <leader>8 <Plug>AirlineSelectTab8
+  nmap <leader>9 <Plug>AirlineSelectTab9
+  nmap <left> <Plug>AirlineSelectPrevTab
+  nmap <right> <Plug>AirlineSelectNextTab
+  nmap <leader>j <Plug>AirlineSelectPrevTab
+  nmap <leader>k <Plug>AirlineSelectNextTab
+  nmap <C-u> <Plug>AirlineSelectPrevTab
+  nmap <C-i> <Plug>AirlineSelectNextTab
+
 " }}}
 
 

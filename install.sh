@@ -59,6 +59,7 @@ fi
 if $FOR_NEOVIM; then
     for i in $HOME/.config/nvim $HOME/.config/nvim/init.vim; do [ -e $i ] && [ ! -L $i ] && mv $i $i.$today; done
     for i in $HOME/.config/nvim/init.vim $HOME/.config/nvim; do [ -L $i ] && unlink $i ; done
+    wget https://raw.githubusercontent.com/llvm-mirror/clang/master/tools/clang-format/clang-format.py -O ./others/clang-format.py
 fi
 
 echo "Step2: setting up symlinks"

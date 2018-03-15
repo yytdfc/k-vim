@@ -424,11 +424,16 @@ nnoremap <A-=> <C-w>+
 nnoremap <A--> <C-w>-
 nnoremap <Leader>l     :TagbarToggle<CR>
 inoremap <Leader>l     <Esc>:TagbarToggle<CR>
+
 " neo terminal
 nnoremap <Leader>t     :sp<CR><C-w><C-w>:res 14<CR>:call HideNumber()<CR>:term/usr/bin/zsh<CR>
 inoremap <Leader>t     <Esc>:sp<CR><C-w><C-w>:res 14<CR>:call HideNumber()<CR>:term/usr/bin/zsh<CR>
 nnoremap <C-n> <C-w>ji
 nnoremap <C-c> i<C-c>
+
+" clang-format
+map <C-K> :pyf ~/.config/nvim/others/clang-format.py<cr>
+imap <C-K> <c-o>:pyf ~/.config/nvim/others/clang-format.py<cr>
 
 
 

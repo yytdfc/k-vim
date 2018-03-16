@@ -434,6 +434,11 @@ nnoremap <C-c> i<C-c>
 " clang-format
 map <C-K> :pyf ~/.config/nvim/others/clang-format.py<cr>
 imap <C-K> <c-o>:pyf ~/.config/nvim/others/clang-format.py<cr>
+function! Formatonsave()
+  let l:formatdiff = 1
+  pyf ~/.config/nvim/others/clang-format.py
+endfunction
+autocmd BufWritePre *.h,*.hpp,*.c,*.cc,*.cpp call Formatonsave()
 
 
 

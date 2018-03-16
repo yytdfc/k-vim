@@ -31,12 +31,11 @@ let g:mapleader = ','
 syntax on
 
 " install bundles
- if has('nvim') 
-   source ~/.config/nvim/vimrc.bundles
-   colorscheme molokai
- elseif filereadable(expand("~/.vimrc.bundles"))
-   source ~/.vimrc.bundles
- endif
+if filereadable(expand("~/.vimrc.bundles"))
+  source ~/.vimrc.bundles
+elseif filereadable(expand("~/.config/nvim/vimrc.bundles")) " neovim
+  source ~/.config/nvim/vimrc.bundles
+endif
 
 " ensure ftdetect et al work by including this after the bundle stuff
 filetype plugin indent on
@@ -406,6 +405,13 @@ inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 "map <C-l> <C-W>l
 
 " my settings
+tnoremap <Esc> <C-\><C-n>
+tnoremap <C-j> <C-\><C-N><C-w>j
+tnoremap <C-k> <C-\><C-N><C-w>k
+tnoremap <A-h> <C-\><C-N><C-w>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
 inoremap <A-h> <C-\><C-N><C-w>h
 inoremap <A-j> <C-\><C-N><C-w>j
 inoremap <A-k> <C-\><C-N><C-w>k
@@ -418,21 +424,11 @@ nnoremap <A-=> <C-w>+
 nnoremap <A--> <C-w>-
 nnoremap <Leader>l     :TagbarToggle<CR>
 inoremap <Leader>l     <Esc>:TagbarToggle<CR>
-
 " neo terminal
 nnoremap <Leader>t     :sp<CR><C-w><C-w>:res 14<CR>:call HideNumber()<CR>:term/usr/bin/zsh<CR>
 inoremap <Leader>t     <Esc>:sp<CR><C-w><C-w>:res 14<CR>:call HideNumber()<CR>:term/usr/bin/zsh<CR>
 nnoremap <C-n> <C-w>ji
 nnoremap <C-c> i<C-c>
-
-" clang-format
-map <C-K> :pyf ~/.config/nvim/others/clang-format.py<cr>
-imap <C-K> <c-o>:pyf ~/.config/nvim/others/clang-format.py<cr>
-function! Formatonsave()
-  let l:formatdiff = 1
-  pyf ~/.config/nvim/others/clang-format.py
-endfunction
-autocmd BufWritePre *.h,*.hpp,*.c,*.cc,*.cpp call Formatonsave()
 
 
 
@@ -710,15 +706,13 @@ endif
 let g:solarized_termcolors=256
 
 " theme主题
-set background=dark
-" set background=light
+" set background=dark
+set background=light
 set t_Co=256
 
 " colorscheme solarized
+colorscheme molokai
 " colorscheme desert
-if !has('nvim') && filereadable(expand("~/.vim/colors/peaksea.vim"))
-   colorscheme peaksea
-endif
 
 
 " 设置标记一列的背景颜色和数字一行颜色一致

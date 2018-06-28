@@ -434,6 +434,16 @@ function! Formatonsave()
 endfunction
 autocmd BufWritePre *.h,*.hpp,*.c,*.cc,*.cpp call Formatonsave()
 
+function! Formatonsave_tex()
+  set textwidth=80
+  normal mT
+  normal gggqG
+  normal 'T
+  delm T
+
+endfunction
+autocmd BufWritePre *.tex call Formatonsave_tex()
+
 
 
 " http://stackoverflow.com/questions/13194428/is-better-way-to-zoom-windows-in-vim-than-zoomwin

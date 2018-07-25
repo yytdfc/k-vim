@@ -420,8 +420,8 @@ nnoremap <Leader>l     :TagbarToggle<CR>
 inoremap <Leader>l     <Esc>:TagbarToggle<CR>
 
 " neo terminal
-nnoremap <Leader>t     :sp<CR><C-w><C-w>:res 14<CR>:call HideNumber()<CR>:term/usr/bin/zsh<CR>
-inoremap <Leader>t     <Esc>:sp<CR><C-w><C-w>:res 14<CR>:call HideNumber()<CR>:term/usr/bin/zsh<CR>
+nnoremap <Leader>t     :sp<CR><C-w><C-w>:res 14<CR>:call HideNumber()<CR>:term$ZSH_BIN<CR>
+inoremap <Leader>t     <Esc>:sp<CR><C-w><C-w>:res 14<CR>:call HideNumber()<CR>:term$ZSH_BIN<CR>
 nnoremap <C-n> <C-w>ji
 nnoremap <C-c> i<C-c>
 
@@ -434,16 +434,9 @@ function! Formatonsave()
 endfunction
 autocmd BufWritePre *.h,*.hpp,*.c,*.cc,*.cpp call Formatonsave()
 
-function! Formatonsave_tex()
-  set textwidth=80
-  normal mT
-  normal gggqG
-  normal 'T
-  delm T
 
-endfunction
-autocmd BufWritePre *.tex call Formatonsave_tex()
-
+nnoremap <leader>gg gqap
+vnoremap <leader>g  gq
 
 
 " http://stackoverflow.com/questions/13194428/is-better-way-to-zoom-windows-in-vim-than-zoomwin

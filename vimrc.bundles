@@ -176,9 +176,9 @@ tnoremap <A-j> <C-\><C-N><C-w>j
 tnoremap <A-k> <C-\><C-N><C-w>k
 tnoremap <A-l> <C-\><C-N><C-w>l
 tnoremap <C-d> <C-d><C-d>
-nnoremap <Leader>b     :vs<CR><C-w><C-w>:call HideNumber()<CR>:term/usr/bin/zsh<CR>
-nnoremap <Leader>t     :sp<CR><C-w><C-w>:res 14<CR>:call HideNumber()<CR>:term/usr/bin/zsh<CR>
-inoremap <Leader>t     <Esc>:sp<CR><C-w><C-w>:res 14<CR>:call HideNumber()<CR>:term/usr/bin/zsh<CR>
+nnoremap <Leader>b     :vs<CR><C-w><C-w>:call HideNumber()<CR>:term$ZSH_BIN<CR>
+nnoremap <Leader>t     :sp<CR><C-w><C-w>:res 14<CR>:call HideNumber()<CR>:term$ZSH_BIN<CR>
+inoremap <Leader>t     <Esc>:sp<CR><C-w><C-w>:res 14<CR>:call HideNumber()<CR>:term$ZSH_BIN<CR>
 nnoremap <C-n> <C-w>ji
 nnoremap <C-c> i<C-c>
 
@@ -651,7 +651,7 @@ call plug#end()
   let g:airline#extensions#tabline#enabled = 1
   let g:airline#extensions#tabline#show_splits = 1
   let g:airline#extensions#tabline#show_tabs = 1
-  let g:airline#extensions#tabline#excludes = ['bash','zsh']
+  let g:airline#extensions#tabline#excludes = ['bash','zsh','ZSH_BIN']
   let g:airline#extensions#tabline#exclude_preview = 1
   let g:airline#extensions#tabline#buffer_idx_mode = 1
   let g:airline#extensions#tabline#buffer_idx_format = {

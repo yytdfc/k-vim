@@ -234,11 +234,11 @@ set nrformats=
 
 " 相对行号: 行号变成相对，可以用 nj/nk 进行跳转
 set relativenumber number
-au FocusLost * :set norelativenumber number
-au FocusGained * :set relativenumber
+" au FocusLost * :set norelativenumber number
+" au FocusGained * :set relativenumber
 " 插入模式下用绝对行号, 普通模式下用相对
-autocmd InsertEnter * :set norelativenumber number
-autocmd InsertLeave * :set relativenumber
+" autocmd InsertEnter * :set norelativenumber number
+" autocmd InsertLeave * :set relativenumber
 function! NumberToggle()
   if(&relativenumber == 1)
     set norelativenumber number
@@ -246,7 +246,6 @@ function! NumberToggle()
     set relativenumber
   endif
 endfunc
-" nnoremap <C-n> :call NumberToggle()<cr>
 
 " 防止tmux下vim的背景色显示异常
 " Refer: http://sunaku.github.io/vim-256color-bce.html
@@ -313,12 +312,6 @@ autocmd BufReadPost quickfix nnoremap <buffer> s <C-w><Enter><C-w>K
 autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
 
 
-" 上下左右键的行为 会显示其他信息
-"inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-"inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-"inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
-"inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
-
 " 打开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -338,12 +331,6 @@ inoremap <C-l> <RIGHT>
 
 
 " 主要按键重定义
-
-" 关闭方向键, 强迫自己用 hjkl
-"map <Left> <Nop>
-"map <Right> <Nop>
-"map <Up> <Nop>
-"map <Down> <Nop>
 
 "Treat long lines as break lines (useful when moving around in them)
 "se swap之后，同物理行上线直接跳
@@ -370,9 +357,15 @@ function! HideNumber()
   endif
   set number?
 endfunc
+function! AbsoluteHideNumber()
+  set nonumber
+  set norelativenumber
+endfunc
 nnoremap <F2> :call HideNumber()<CR>
+
 " F3 显示可打印字符开关
 nnoremap <F3> :set list! list?<CR>
+
 " F4 换行开关
 nnoremap <F4> :set wrap! wrap?<CR>
 
@@ -399,13 +392,32 @@ inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
 
 
-" 分屏窗口移动, Smart way to move between windows
-"map <C-j> <C-W>j
-"map <C-k> <C-W>k
-"map <C-h> <C-W>h
-"map <C-l> <C-W>l
 
-" my settings
+" neo terminal
+  " open horizon terminal
+  inoremap <Leader>t     <Esc>:sp<CR><C-w><C-w>:res 14<CR>:call AbsoluteHideNumber()<CR>:term$ZSH_BIN<CR>i
+  nnoremap <Leader>t     :sp<CR><C-w><C-w>:res 14<CR>:call AbsoluteHideNumber()<CR>:term$ZSH_BIN<CR>i
+  " open vertical terminal
+  nnoremap <Leader>b     :vs<CR><C-w><C-w><CR>:term$ZSH_BIN<CR>i
+  " quick to terminal insert mode
+  nnoremap <C-n> <C-w><C-w>i
+  nnoremap <C-c> i<C-c>
+  " quick make
+  nnoremap <Leader>m     <C-w>jimake<CR><C-\><C-n><C-w>k
+  inoremap <Leader>m     <Esc><C-w>jimake<CR><C-\><C-n><C-w>k
+  nnoremap <Leader>l     <C-w>ji<C-p><CR><C-\><C-n><C-w>k
+  inoremap <Leader>l     <Esc><C-w>ji<C-p><CR><C-\><C-n><C-w>k
+  " terminal exit
+  tnoremap <Esc> <C-\><C-N>
+  tnoremap <C-j> <C-\><C-N><C-w>j
+  tnoremap <C-k> <C-\><C-N><C-w>k
+  tnoremap <C-h> <C-\><C-N><C-w>h
+  tnoremap <C-l> <C-\><C-N><C-w>l
+  tnoremap <A-h> <C-\><C-N><C-w>h
+  tnoremap <A-j> <C-\><C-N><C-w>j
+  tnoremap <A-k> <C-\><C-N><C-w>k
+  tnoremap <A-l> <C-\><C-N><C-w>l
+" window moving
 inoremap <A-h> <C-\><C-N><C-w>h
 inoremap <A-j> <C-\><C-N><C-w>j
 inoremap <A-k> <C-\><C-N><C-w>k
@@ -416,14 +428,7 @@ nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 nnoremap <A-=> <C-w>+
 nnoremap <A--> <C-w>-
-nnoremap <Leader>l     :TagbarToggle<CR>
-inoremap <Leader>l     <Esc>:TagbarToggle<CR>
 
-" neo terminal
-nnoremap <Leader>t     :sp<CR><C-w><C-w>:res 14<CR>:call HideNumber()<CR>:term$ZSH_BIN<CR>
-inoremap <Leader>t     <Esc>:sp<CR><C-w><C-w>:res 14<CR>:call HideNumber()<CR>:term$ZSH_BIN<CR>
-nnoremap <C-n> <C-w>ji
-nnoremap <C-c> i<C-c>
 
 " clang-format
 map <C-K> :pyf ~/.config/nvim/others/clang-format.py<cr>
@@ -435,8 +440,12 @@ endfunction
 autocmd BufWritePre *.h,*.hpp,*.c,*.cc,*.cpp call Formatonsave()
 
 
+" for tex editing
 nnoremap <leader>gg gqap
 vnoremap <leader>g  gq
+autocmd BufNewFile,BufRead *.tex set textwidth=80
+autocmd BufNewFile,BufRead *.tex set spell 
+let g:tex_indent_items=0
 
 
 " http://stackoverflow.com/questions/13194428/is-better-way-to-zoom-windows-in-vim-than-zoomwin
@@ -502,39 +511,12 @@ autocmd BufNewFile,BufRead *.py inoremap # X<c-h>#
 " 切换前后buffer
 nnoremap [b :bprevious<cr>
 nnoremap ]b :bnext<cr>
-" 使用方向键切换buffer
-" noremap <left> :bp<CR>
-" noremap <right> :bn<CR>
 
 
 " tab 操作
 " http://vim.wikia.com/wiki/Alternative_tab_navigation
 " http://stackoverflow.com/questions/2005214/switching-to-a-particular-tab-in-vim
 
-" " tab切换
-" map <leader>th :tabfirst<cr>
-" map <leader>tl :tablast<cr>
-
-" map <leader>tj :tabnext<cr>
-" map <leader>tk :tabprev<cr>
-" map <leader>tn :tabnext<cr>
-" map <leader>tp :tabprev<cr>
-
-" map <leader>te :tabedit<cr>
-" map <leader>td :tabclose<cr>
-" map <leader>tm :tabm<cr>
-
-" " normal模式下切换到确切的tab
-" noremap <leader>1 1gt
-" noremap <leader>2 2gt
-" noremap <leader>3 3gt
-" noremap <leader>4 4gt
-" noremap <leader>5 5gt
-" noremap <leader>6 6gt
-" noremap <leader>7 7gt
-" noremap <leader>8 8gt
-" noremap <leader>9 9gt
-" noremap <leader>0 :tablast<cr>
 
 " Toggles between the active and last active tab "
 " The first tab is always 1 "
@@ -545,9 +527,6 @@ let g:last_active_tab = 1
 nnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
 autocmd TabLeave * let g:last_active_tab = tabpagenr()
 
-" 新建tab  Ctrl+t
-" nnoremap <C-t>     :tabnew<CR>
-" inoremap <C-t>     <Esc>:tabnew<CR>
 
 
 " => 选中及操作改键
@@ -584,11 +563,6 @@ nnoremap <C-e> 2<C-e>
 nnoremap <C-y> 2<C-y>
 
 
-" Jump to start and end of line using the home row keys
-" 增强tab操作, 导致这个会有问题, 考虑换键
-"nmap t o<ESC>k
-"nmap T O<ESC>j
-
 " Quickly close the current window
 nnoremap <leader>q :q<CR>
 " b# | bd# <CR>
@@ -612,7 +586,7 @@ nmap <silent> <leader>sv :so $MYVIMRC<CR>
 "==========================================
 
 " 具体编辑文件类型的一般设置，比如不要 tab 等
-autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
+autocmd FileType python set tabstop=4 shifwidth=4 expandtab ai
 autocmd FileType ruby,javascript,html,css,xml set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
 autocmd BufRead,BufNewFile *.md,*.mkd,*.markdown set filetype=markdown.mkd
 autocmd BufRead,BufNewFile *.part set filetype=html
@@ -628,7 +602,7 @@ fun! <SID>StripTrailingWhitespaces()
     %s/\s\+$//e
     call cursor(l, c)
 endfun
-autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,tex autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 
 " 定义函数AutoSetFileHead，自动插入文件头
@@ -659,33 +633,6 @@ if has("autocmd")
     autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|NOTICE\)')
   endif
 endif
-
-"==========================================
-" TEMP 设置, 尚未确定要不要
-"==========================================
-
-" tmux
-" function! WrapForTmux(s)
-"   if !exists('$TMUX')
-"     return a:s
-"   endif
-"
-"   let tmux_start = "\<Esc>Ptmux;"
-"   let tmux_end = "\<Esc>\\"
-"
-"   return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
-" endfunction
-"
-" let &t_SI .= WrapForTmux("\<Esc>[?2004h")
-" let &t_EI .= WrapForTmux("\<Esc>[?2004l")
-
-" allows cursor change in tmux mode
-" let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-" let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-" if exists('$TMUX')
-    " let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-    " let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-" endif
 
 
 "==========================================
